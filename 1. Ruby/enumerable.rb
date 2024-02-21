@@ -1,7 +1,6 @@
 module MyEnumerable
   def each(&block); raise NotImplementedError; end
   def size; raise NotImplementedError; end
-  def first; raise NotImplementedError; end
 
   def each_with_index(&block)
     idx = 0
@@ -40,8 +39,6 @@ class MyArray
   def each(&block)
     @arr.each(&block)
   end
-
-  def first
-    @arr.first
-  end
 end
+
+binding.irb
