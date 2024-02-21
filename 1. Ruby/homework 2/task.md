@@ -1,4 +1,4 @@
-## Задание к уроку Ruby (part 2) 
+## Задание к уроку Ruby (lesson 2) 
 
 ### You need to implement DSL for matching things. Following code has to work:
 
