@@ -1,21 +1,17 @@
 class Kabanchik
-
-  class InvalidNameError < StandardError; end # No need to create 3 types of error
-  class InvalidAgeError < StandardError; end
-  class InvalidStatusError < StandardError; end
+  class InvalidArgumentError < StandardError; end # No need to create 3 types of error
 
   AGE = (14..103) # Redundant braces
 
-  attr_accessor :name, :age, :na_podskoke
+  attr_reader :age
+  attr_accessor :name, :na_podskoke
 
   def initialize(name, age, na_podskoke)
-      @name = name
-      @age = age
-      @na_podskoke = na_podskoke
+    @name = name
+    @age = age
+    @na_podskoke = na_podskoke
 
-      raise InvalidNameError unless valid_name? # Move to a separate validation method
-      raise InvalidAgeError unless valid_age? # raise InvalidArgument, "invalid age argument"
-      raise InvalidStatusError unless valid_na_podskoke?
+    validate!
   end
 
   def obkashlyat # Naming
@@ -24,6 +20,26 @@ class Kabanchik
       else
           return "Поставил дело на карандаш" # Redundant return
       end
+  end
+
+  def validate!
+    raise InvalidArgumentError, 'invalid name' unless valid_name? # Move to a separate validation method
+    raise InvalidArgumentError, 'invalid age' unless valid_age? # raise InvalidArgument, "invalid age argument"
+    raise InvalidArgumentError, 'invalid AAAAA' unless valid_na_podskoke?
+  end
+
+  def valid?
+    validate!
+
+    true
+  rescue InvalidArgumentError => e
+    false
+  end
+
+  def age=(new_age)
+    @age = new_age
+
+    validate!
   end
 
   private
@@ -52,3 +68,5 @@ class Reshala < Kabanchik
       raise InvalidAgeError unless AGE.include?(age)
   end
 end
+
+binding.irb

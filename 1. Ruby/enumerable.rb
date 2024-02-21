@@ -25,20 +25,32 @@ module MyEnumerable
   end
 end
 
+module MyIterable
+  def size
+    @arr.size
+  end
+end
+
 class MyArray
   include MyEnumerable
+  include MyIterable
 
   def initialize(arr)
     @arr = arr
   end
  
-  def size
-    @arr.size
-  end
-  
   def each(&block)
     @arr.each(&block)
   end
 end
+
+class MyHash
+  include MyEnumerable
+  include MyIterable
+end
+
+[1,2 ,3 ,4] => Array
+
+Enumerable
 
 binding.irb

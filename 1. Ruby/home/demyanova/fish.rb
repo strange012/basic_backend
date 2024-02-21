@@ -48,6 +48,13 @@ class Fish
     FRESHWATER_FISH.include?(name)
   end
 
+
+  def weight=(weight)
+    @weight = weight
+
+    @size_group = determine_size_group(weight)
+  end
+
   private
 
   def valid_name?
@@ -59,7 +66,7 @@ class Fish
   end
 
   def valid_weight? # Can weight be negative?
-    weight.is_a? Numeric
+    weight.is_a?(Numeric) && weight.positive?
   end
 end
 

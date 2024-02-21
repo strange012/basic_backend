@@ -1,3 +1,5 @@
+require_relative 'parent'
+
 class Child < Parent # Child relates to unknown class
   # I don't think this is a correct relation
   def say_fathers_last_name # What does it mean?
