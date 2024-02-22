@@ -1,4 +1,3 @@
-
 module MyModule
   def instance_method
     puts 'module 2'
@@ -30,18 +29,7 @@ module MyModule
   end
 end
 
-module TimeTrackable
-  def self.prepended
-    self.methods.each do |method|
-      define_method method do
-        t = Time.now
-        result = send(:method)
-        puts "step 1 time spent: #{Time.now - t}"
-        result
-      end
-    end
-  end
-  
+module TimeTrackable  
   def step1
     t = Time.now
     result = super
@@ -59,13 +47,29 @@ module TimeTrackable
   
 end
 
-class A
+class C
+
+  def self.print_something
+    puts "Something"
+  end
+
+  def self.define_my_method
+    define_method :step_instance do
+      puts "I'm not predefined"
+    end
+  end
+end
+
+class A < C
+  define_my_method
+
   def self.included(base)
     extend(self, base.class)
   end
 
   include MyModule
   prepend TimeTrackable
+  extend MyModule
 
   def instance_method
     super
@@ -86,6 +90,21 @@ class A
     result
   end
 
+  def self.step_class
+    560 * 4
+  end
+
+  class << self
+    def step_class_2
+      300 * 23
+    end
+  end
+
+  private
+
+  def private_step
+    puts "I'am private"
+  end
 end
 
 class B
@@ -95,5 +114,3 @@ end
 
 
 binding.irb
-
-
