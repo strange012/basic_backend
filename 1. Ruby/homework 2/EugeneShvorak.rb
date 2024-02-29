@@ -6,11 +6,12 @@ module Testable
       end
   
       def to(matcher)
-          matcher.match?(@obj)
+        matcher.match?(@obj) ? (puts "OK") : (puts "fail")
       end
   
       def not_to(matcher)
-          !matcher.match?(@obj)
+        binding.irb
+        !matcher.match?(@obj) ? (puts "OK") : (puts "fail")
       end
     end
   
@@ -25,7 +26,7 @@ module Testable
     end
   
     def expect(obj)
-      Expectation.new(subject)
+      Expectation.new(obj)
     end
   
     def eq(expected)
@@ -91,4 +92,4 @@ module Testable
     def be_successful
       BeSuccessfulMatcher.new
     end
-  end
+end
