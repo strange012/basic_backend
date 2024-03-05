@@ -36,3 +36,28 @@ def generate_random_array(size, min_value, max_value)
 end
 
 get_average(generate_random_array(10, 1, 100))
+
+
+
+module AverageComputer
+    def sum_of(array)
+        sum = 0
+        array.each do |el|
+            sum += el
+        end
+        sum
+    end
+
+    def avg(array)
+        sum_of(array) / array.size
+    end
+end
+
+module ArrayAverage
+    include AverageComputer
+    def average
+        avg(self).tap { |x| puts x }
+    end
+end
+
+Array.prepend ArrayAverage

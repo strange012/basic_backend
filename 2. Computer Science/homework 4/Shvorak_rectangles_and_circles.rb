@@ -73,3 +73,85 @@ module CountAreaHelper
   seq = [[[2, 5], 6]]
   p sort_by_area(seq)
   
+
+
+ 
+
+class Shapes
+  include Enumerable
+  
+  def initialize(array_of_shapes)
+    @shapes = array_of_shapes.map { |el| self.class.build_shape(el) }
+  end
+
+  def sort_by_area
+    @shapes.sort_by { |el| el.area }
+  end
+
+  def sort_by_area!
+    @shapes = sort_by_area
+    self
+  end
+
+  def to_output
+    @shapes.map { |el| el.output }
+  end
+
+  def each(&block)
+    @shapes.each(&block)
+  end
+
+  class Shape; end
+
+  class Rectangle < Shape
+    def initialize(a, b)
+      @a = a
+      @b = b
+    end
+
+    def area
+      @a * @b
+    end
+
+    def output
+      [@a, @b]
+    end
+  end
+
+  class Circle < Shape
+    def initialize(r)
+      @r = r
+    end
+
+    def area
+      @r**2 * Math::PI
+    end
+
+    def output
+      @r
+    end
+  end
+
+  class << self
+    def build_shape(arg)
+      case arg
+      when Numeric
+        Circle.new(arg)
+      when Array
+        Rectangle.new(*arg)
+      else
+        raise ArgumentError "invalid argument type"
+      end 
+    end
+  end
+end
+
+
+def sort_by_area(array)
+  shapes = Shapes.new(array)
+  shapes.sort_by_area!
+  shapes.to_output
+end
+
+example = [[4.23, 6.43], 1.23, 3.444, [1.342, 3.212]]
+binding.irb
