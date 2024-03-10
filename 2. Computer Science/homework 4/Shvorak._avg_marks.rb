@@ -1,3 +1,4 @@
+#Мое решение
 module FindAverageHelper
     def sum_of(obj)
         Summarizer.new(obj)
@@ -30,15 +31,14 @@ def get_average(marks)
 end
 
 def generate_random_array(size, min_value, max_value)
-    array = Array.new(size) { rand(min_value..max_value) }
-    puts array
-    array
+    Array.new(size) { rand(min_value..max_value) }
 end
 
 get_average(generate_random_array(10, 1, 100))
 
 
 
+#Решение Макса
 module AverageComputer
     def sum_of(array)
         sum = 0

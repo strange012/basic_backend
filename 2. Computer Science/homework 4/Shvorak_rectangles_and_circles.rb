@@ -1,3 +1,4 @@
+#Моё решение
 module CountAreaHelper
     def sort(obj)
       Sorter.new(obj)
@@ -30,7 +31,7 @@ module CountAreaHelper
       end
   
       def merge_sort
-        transformed_array = transform_object_to_area_type
+        transform_object_to_area_type
         return @obj if @obj.length <= 1
   
         mid = @obj.length / 2
@@ -63,7 +64,7 @@ module CountAreaHelper
         sorted
       end
     end
-  end
+end
   
   def sort_by_area(array)
     include CountAreaHelper
@@ -76,7 +77,7 @@ module CountAreaHelper
 
 
  
-
+#Решение Максима
 class Shapes
   include Enumerable
   
@@ -154,4 +155,4 @@ def sort_by_area(array)
 end
 
 example = [[4.23, 6.43], 1.23, 3.444, [1.342, 3.212]]
-binding.irb
+p sort_by_area(example)
