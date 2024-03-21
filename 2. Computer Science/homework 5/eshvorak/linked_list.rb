@@ -29,47 +29,44 @@ class LinkedList
   end
 
   def [](index)
-    search_by(index, 'node by index')
+    search_by do |curr_node, curr_idx|
+      curr_node if curr_idx == index
+    end
   end
 
   def find(value)
-    search_by(value, 'node by value')
+    search_by do |curr_node|
+      curr_node if curr_node.value == value
+    end
   end
 
   def index_of(node)
-    search_by(node, 'index by node')
+    search_by do |curr_node, curr_idx|
+      curr_idx if curr_node == node
+    end
   end
 
   
-  def insert(value, index)
-    raise InvalidArgumentsError, 'Index not found' unless index <= list_size
+  def insert(value, position) # не смог осилить как вставить ноду. вместо вставки она удаляла к чертям предыдущую ноду
+    raise InvalidArgumentsError, 'Index not found' unless position <= list_size # вызываю ошибку если позиция больше размера массива
 
-    if @head.nil?
-      @head = Node.new(value)
-      @tail = @head
-    elsif index == 0
-      new_node = Node.new(value)
-      new_node.next_node = @head
-      @head = new_node
-    elsif index == list_size - 1 # придумал упрощение в случае если мы добавляем в конец массива. но по факту при каждом добавлении будет высчитываться list_size что на большом списке с большим количеством вызовов insert вызовет боль =\
-      self << value
+    val_node = Node.new(value)
+
+    if position.zero?
+      val_node.next_node = @head
+      @head = val_node
+      @tail = val_node unless @tail
     else
-      node_after_added = self[index]
-      prev_node = self[index - 1]
-      new_node = Node.new(value)  
-      prev_node.next_node = new_node
-      new_node.next_node = node_after_added
+      pos_node = self[position - 1]
+
+      val_node.next_node = pos_node.next_node
+      pos_node.next_node = val_node
+      @tail = val_node unless val_node.next_node
     end
   end
 
   def push(value)
-    if @head.nil? # в случае если список пустой - создаем узел и добавляем туда элемент
-      @head = Node.new(value)
-      @tail = @head
-    else
-      @tail.next_node = Node.new(value)
-      @tail = @tail.next_node
-    end
+    insert(value, index_of(@tail) + 1)
   end
 
   alias << push
@@ -91,57 +88,18 @@ class LinkedList
     @tail = current_node
   end
 
-  # def search_by(criteria_arg, type) # запилил херню и рад. просидел 2 часа думая как сделать код более эффективным не внося 3 условия в цикл, не придумал
-  #   current_node = @head
-  #   current_index = 0
-# 
-  #   case type
-  #   when 'node by index'
-  #     while current_node != nil
-  #       return current_node if current_index == criteria_arg
-# 
-  #       current_node = current_node.next_node
-  #       current_index += 1
-  #     end
-# 
-  #   when 'node by value'
-  #     while current_node != nil
-  #       return current_node if current_node.value == criteria_arg
-# 
-  #       current_node = current_node.next_node
-  #       current_index += 1
-  #     end
-  #     
-  #   when 'index by node'
-  #     while current_node != nil
-  #       return current_index if current_node == criteria_arg
-# 
-  #       current_node = current_node.next_node
-  #       current_index += 1
-  #     end
-  #   end
-# 
-  #   return nil
-  # end
-  
-  def search_by(criteria_arg, type) # решение чат гпт через лямбда функции. выглядит красиво
-    operation = {
-      'node by index' => ->(node, index) { node if index == criteria_arg },
-      'node by value' => ->(node, _) { node if node.value == criteria_arg },
-      'index by node' => ->(node, index) { index if node == criteria_arg }
-    }
-  
+  def search_by(&block) # решение чат гпт через лямбда функции. выглядит красиво
     current_node = @head
     current_index = 0
-  
-    while current_node != nil
-      result = operation[type].call(current_node, current_index)
+
+    while current_node
+      result = block.call(current_node, current_index)
       return result if result
-  
+
       current_node = current_node.next_node
       current_index += 1
     end
-  
+
     nil
   end
   
@@ -151,33 +109,36 @@ class LinkedList
     current_node = @head
     length = 0
 
-    while current_node != nil
+    while current_node
       current_node = current_node.next_node
       length += 1
     end
     length
   end
-  
 end
 
-
-
-
-
 list = LinkedList.new(%w[2213 12321321 213213213])
+
 list << 1
 list << 2
 list << 3
 
 p list[4]
 p list[6]
+
 p list.find(1)
 p list.find("213213213")
 p list.find(213213213)
+
 node_to_find = list.head.next_node.next_node
 p list.index_of(node_to_find)
-list.insert(:aa, 3)
-list.insert(:aa, 0)
-list.insert(:aa, 7)
+
+list.insert(:a1, 3)
+list.insert(:a2, 0)
+list.insert(:a3, 7)
+
+list.push(:a4)
+list << :a5
 
 puts list.to_array.inspect
+binding.irb
