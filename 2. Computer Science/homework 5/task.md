@@ -8,59 +8,69 @@
 - Определить конструктор класса, который создает связный список из массива
 
   ```ruby
-    def initialize(array)
-    end
+    LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
+    LinkedList.new # <LinkedList []>
   ```
 
 - Определить метод `[]` для получения узла по индексу
 
    ```ruby
-    def [](index)
-    end
+    list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
+    list[2] # <Node 3>
+    list[100] # nil
   ```
 
 - Определить метод `find` для поиска узла по значению
 
    ```ruby
-    def find(val)
-    end
+    list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
+    list.find(3) # <Node 3>
+    list.find(5) # nil
   ```
 
 - Определить метод `index_of` для поиска индекса узла
 
    ```ruby
-    def index_of(node)
-    end
+    list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
+    node = list.find(2) # <Node 2>
+
+    list.index_of(node) # 1
+    list.index_of(Node.new(12)) # nil
   ```
 
 - Определить метод `insert` для вставки элемента или узла на место указанного индекса
 
    ```ruby
-    def insert(val, index)
-    end
+    list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
+    
+    list.insert(4, 2) # 
+    list.insert(Node.new(5), 1)# <LinkedList [1, 5, 2, 3, 4]> 
   ```
 
 - Определить метод `push` для вставки элемента или узла в конец массива. Объявить alias на метод `<<`
 
    ```ruby
-    def push(val)
-    end
+    list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
+
+    list.push(4) # <LinkedList [1, 2, 3, 4]>
+    list << Node.new(5) # <LinkedList [1, 2, 3, 4, 5]> 
   ```
 
 ## Дополнительное задание
 
-- Определить конструктор класса, который создает связный список из `n` параметров
+- Определить метод `to_list` у массива
 
-```ruby
-  def initialize(a, b, c,...., z)
-  end
-```
+  ```ruby
+    [1, 2, 3].to_list # <LinkedList [1, 2, 3]>
+  ```
 
 - Включить в реализацию класса `LinkedList` модуль `Enumerable`
 
 - Определить метод `delete` для удаления узла из связного списка
 
    ```ruby
-    def delete(node)
-    end
+    list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
+
+    node = list.find(2) # <Node 3>
+    list.delete(node) # <LinkedList [1, 3]>
   ```
