@@ -7,7 +7,15 @@ class Node
   end
 end
 
+class Array
+  def to_list
+    LinkedList.new(self)
+  end
+end
+
 class LinkedList
+  include Enumerable
+
   class InvalidArgumentsError < StandardError; end
 
   attr_reader :head, :tail  
@@ -18,14 +26,18 @@ class LinkedList
     create_list(array) # сразу создаем лист из массива при инициализации
   end
 
-  def to_array # метод для обратного извлечения массива из списка
+  def to_a # метод для обратного извлечения массива из списка
     values = []
-    current_node = @head # в данном случае head - начало уже сформированного linked_list
-    while current_node != nil # nil - будет последним узлом согласно условия формирования листа в методе create_list
-      values << current_node.value # сунем в массив значение текущего узла
-      current_node = current_node.next_node # идем к след узлу
-    end
+    each { |node| values << node.value }
     values
+  end
+
+  def each
+    current_node = @head
+    while current_node
+      yield current_node
+      current_node = current_node.next_node
+    end
   end
 
   def [](index)
@@ -70,6 +82,26 @@ class LinkedList
   end
 
   alias << push
+
+  def delete(node)
+    return if @head.nil? || node.nil?
+
+    if @head == node
+      @head = @head.next_node
+      @tail = nil if @head.nil?
+      return
+    end
+
+    current_node = @head
+    while current_node.next_node != node && current_node.next_node != nil
+      current_node = current_node.next_node
+    end
+
+    unless current_node.next_node.nil?
+      current_node.next_node = current_node.next_node.next_node
+      @tail = current_node if current_node.next_node.nil?
+    end
+  end
 
   private
 
@@ -140,5 +172,10 @@ list.insert(:a3, 7)
 list.push(:a4)
 list << :a5
 
-puts list.to_array.inspect
+puts [1, 2, 3].to_list
+
+node_to_delete = list.find(:a5)
+list.delete(node_to_delete)
+
+list.to_a
 binding.irb
