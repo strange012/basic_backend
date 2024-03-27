@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres
+    container_name: basic_backend_postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - basic_backend_postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=basic_backend
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: basic_backend_pgadmin
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - basic_backend_pgadmin:/var/lib/pgadmin
+
+volumes:
+  basic_backend_postgres:
+  basic_backend_pgadmin:
