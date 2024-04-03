@@ -16,8 +16,6 @@ end
 class LinkedList
   include Enumerable
 
-  class InvalidArgumentsError < StandardError; end
-
   attr_reader :head, :tail  
 
   def initialize(array = []) # прописал изначальное состояние массива в случае если забыли передать аргументы
@@ -27,11 +25,9 @@ class LinkedList
   end
 
   def to_a # метод для обратного извлечения массива из списка
-    values = []
-    each { |node| values << node.value }
-    values
+    map(&:value)
   end
-
+  
   def each
     current_node = @head
     while current_node
@@ -42,26 +38,24 @@ class LinkedList
 
   def [](index)
     search_by do |curr_node, curr_idx|
-      curr_node if curr_idx == index
+      return curr_node if curr_idx == index
     end
   end
 
   def find(value)
     search_by do |curr_node|
-      curr_node if curr_node.value == value
+      return curr_node if curr_node.value == value
     end
   end
 
   def index_of(node)
     search_by do |curr_node, curr_idx|
-      curr_idx if curr_node == node
+      return  curr_idx if curr_node == node
     end
   end
 
   
   def insert(value, position) # не смог осилить как вставить ноду. вместо вставки она удаляла к чертям предыдущую ноду
-    raise InvalidArgumentsError, 'Index not found' unless position <= list_size # вызываю ошибку если позиция больше размера массива
-
     val_node = Node.new(value)
 
     if position.zero?
@@ -121,32 +115,17 @@ class LinkedList
   end
 
   def search_by(&block) # решение чат гпт через лямбда функции. выглядит красиво
-    current_node = @head
-    current_index = 0
-
-    while current_node
-      result = block.call(current_node, current_index)
-      return result if result
-
-      current_node = current_node.next_node
-      current_index += 1
+    each_with_index do |node, idx|
+      block.call(node, idx)
     end
-
-    nil
   end
   
   def list_size
-    return 0 if @head.nil?
-
-    current_node = @head
-    length = 0
-
-    while current_node
-      current_node = current_node.next_node
-      length += 1
-    end
-    length
+    count = 0
+    each { |_| count += 1 }
+    count
   end
+  
 end
 
 list = LinkedList.new(%w[2213 12321321 213213213])
