@@ -29,3 +29,11 @@ SQL
 
 -- 2.4. Посчитать средний размер разового инвойса за полгода без экстремальных значений
 
+sql = <<-SQL
+SELECT AVG(base_amount) AS average_amount
+FROM bills AS b
+LEFT JOIN contract_bills AS c ON b.id = c.bill_id
+WHERE posted_at >= CURRENT_DATE - INTERVAL '6' MONTH
+AND base_amount > 10 AND base_amount < 10000
+GROUP BY client_id;
+SQL
