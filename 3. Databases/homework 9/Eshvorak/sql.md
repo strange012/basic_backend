@@ -29,10 +29,10 @@
   sql = <<-SQL
   SELECT c.id, c.account_name, COUNT(b.id) AS bills_count, TO_CHAR(AVG(b.amount), 'FM999999999.9999') AS avg_bill_amount, TO_CHAR(SUM(b.amount), 'FM999999999.9999') AS all_bills_amount
   FROM clients c
-  JOIN bills ON c.id = b.client_id
-  WHERE p.created_at >= CURRENT_DATE - INTERVAL '6 months'
-    AND b.state IN (0, 1, 3) 
-    AND (c.posted_at > c.created_at + INTERVAL '5 days')
+  JOIN bills b ON c.id = b.client_id
+  WHERE b.posted_at >= CURRENT_DATE - INTERVAL '6 months'
+    AND b.state IN (0, 1, 2, 3) 
+    AND (c.paid_at > c.posted_at + INTERVAL '5 days')
   GROUP BY 
     c.id
   SQL
