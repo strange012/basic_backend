@@ -20,19 +20,19 @@
 
 Можно добавить в начало запроса `EXPLAIN ANALYZE`, чтобы получить план и время исполнения.
 
-### 2.1. Получить список клиентов c просроченными платежами (любыми) за последние полгода. Посчитать количество, среднюю сумму и общую сумму платежей для каждого клиента
+### 2.1. Получить список клиентов c просроченными ИНВОЙСАМИ (любыми) за последние полгода. Посчитать количество, среднюю сумму и общую сумму ИНВОЙСОВ для каждого клиента
 
-Платеж считается `overdue`, если не был оплачен в течение 5 дней с момента выставления (независимо от того, был ли он оплачен). Полгода считаем по дате выставления, а не по дате оплаты.
+ИНВОЙС считается `overdue`, если не был оплачен в течение 5 дней с момента выставления (независимо от того, был ли он оплачен). Полгода считаем по дате выставления, а не по дате оплаты.
 
 
 ```ruby
   sql = <<-SQL
-  SELECT c.id, c.account_name, COUNT(p.id) AS payment_count, TO_CHAR(AVG(p.amount), 'FM999999999.9999') AS avg_payment_amount, TO_CHAR(SUM(p.amount), 'FM999999999.9999') AS all_payments_amount
+  SELECT c.id, c.account_name, COUNT(b.id) AS bills_count, TO_CHAR(AVG(b.amount), 'FM999999999.9999') AS avg_bill_amount, TO_CHAR(SUM(b.amount), 'FM999999999.9999') AS all_bills_amount
   FROM clients c
-  JOIN payments p ON c.id = p.client_id
+  JOIN bills ON c.id = b.client_id
   WHERE p.created_at >= CURRENT_DATE - INTERVAL '6 months'
-    AND p.state IN (0, 1, 3, 4) 
-    AND (p.paid_at IS NULL OR p.paid_at > p.created_at + INTERVAL '5 days')
+    AND b.state IN (0, 1, 3) 
+    AND (c.posted_at > c.created_at + INTERVAL '5 days')
   GROUP BY 
     c.id
   SQL
