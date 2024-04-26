@@ -6,7 +6,7 @@
 
 ### Краткая инструкция через `Docker`
 
-Зайти в папку `homework 9`, где лежит `docker-compose.yml`
+Зайти в папку `homework 10`, где лежит `docker-compose.yml`
 
 ```bash
 docker-compose up -d
