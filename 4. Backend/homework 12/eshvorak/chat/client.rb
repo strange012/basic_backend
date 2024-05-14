@@ -7,24 +7,30 @@ class Client
     @server = TCPSocket.open(hostname, port)
     puts "Connected to the server..."
     @running = true
-    send_messages
+    Thread.new { send_messages }
     receive_messages
   end
 
   def send_messages
-    Thread.new do
-      while @running
-        message = gets.chomp
+    while @running
+      message = gets.chomp
+      begin
         @server.puts message unless message.nil?
+      rescue => e
+        puts "Error sending message: #{e.message}"
+        stop
       end
     end
   end
 
   def receive_messages
-    Thread.new do
-      while @running
-        message = @server.gets
-        puts message.chomp unless message.nil?
+    while @running
+      message = @server.gets
+      if message.nil?
+        puts "Connection closed by server."
+        stop
+      else
+        puts message.chomp
       end
     end
   end
@@ -32,6 +38,8 @@ class Client
   def stop
     @running = false
     @server.close
+  rescue
+    # already closed
   end
 end
 
