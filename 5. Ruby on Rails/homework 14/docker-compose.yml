@@ -1,0 +1,49 @@
+services:
+  rails:
+    image: basic_backend_rails
+    command: bundle exec bin/rails s -b 0.0.0.0 -p 3000
+    build:
+      context: .
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/app:cached
+      - bundle_cache:/usr/local/bundle
+      - rails_cache:/app/tmp/cache
+    environment:
+      DATABASE_HOST: postgres
+    ports:
+      - '3000:3000'
+    networks:
+      - default
+    depends_on:
+    - postgres
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: basic_backend
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+volumes:
+  bundle_cache:
+  postgres:
+  rails_cache:
+  pgadmin:
