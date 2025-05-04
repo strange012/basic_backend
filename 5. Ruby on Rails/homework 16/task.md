@@ -1,13 +1,13 @@
-# Задание к уроку Ruby on Rails (lesson 16)
+# Ruby on Rails block homework (lesson 16)
 
-## Имплементировать базовые CRUD роуты
+## Implement basic CRUD routes
 
-Необходимо дописать в `config/routes.rb` эндпоинты CRUD для новой модели
+You need to add CRUD endpoints for the new model in `config/routes.rb`
 
-## Имплементировать контроллер к CRUD роутам
+## Implement a controller for the CRUD routes
 
-Необходимо создать в `app/controllers` новый контроллер, и прописать там actions для своих эндпоинтов
+You need to create a new controller in `app/controllers` and define actions for your endpoints
 
-## Имплементировать сервисы на каждый CRUD action
+## Implement services for each CRUD action
 
-Каждый action контроллера должен вызывать сервисный объект, сервисные объекты положить в папку `app/services`
+Each controller action should call a service object. Place the service objects in the `app/services` folder

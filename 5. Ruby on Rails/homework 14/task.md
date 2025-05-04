@@ -1,24 +1,24 @@
-# Задание к уроку Ruby on Rails (lesson 14)
+# Ruby on Rails block homework (lesson 14)
 
-## Развернуть локально Rails приложение
+## Deploy a Rails application locally
 
-Использовать команду [`rails new`](https://guides.rubyonrails.org/command_line.html#rails-new) для генерации нового приложения. В документации описаны возможные параметры.
+Use the [`rails new`](https://guides.rubyonrails.org/command_line.html#rails-new) command to generate a new application. The documentation describes possible parameters.
 
-Папка удаляется и процедура повторяется ровно столько раз, сколько потребуется для достижения желаемого эффекта :)
+The folder is deleted and the procedure is repeated exactly as many times as needed to achieve the desired effect :)
 
-Для запуска из докера следует перекинуть `Dockerfile` и `docker-compose.yml` в корень проекта. Заменяем в `Dockerfile` RUBY_VERSION на текущую версию руби. Далее запускаем:
+To run from Docker, you should transfer the `Dockerfile` and `docker-compose.yml` to the project root. Replace RUBY_VERSION in the `Dockerfile` with the current Ruby version. Then run:
 
 ```bash
 docker-compose up rails
 ```
 
-Далее заходим в брауер, вводим `http://localhost:3000/`, и видим красивую эмблему Rails. Поздравляю, мы запустили локально приложение!
+Next, go to the browser, enter `http://localhost:3000/`, and see the beautiful Rails emblem. Congratulations, we have launched the application locally!
 
-## Дополнительно. Подключить к приложению PostgreSQL из докера, который был настроен в третьем блоке
+## Additional task: Connect the application to PostgreSQL from Docker, which was configured in the third block
 
-В `docker-compose.yml` уже прописаны все зависимости для настройки PostgreSQL. Для подключения базы необходимо сгенерировать `rails new` с аргументом `--database=postgresql`. После чего повторить все шаги из предыдущего блока.
+The `docker-compose.yml` already has all the dependencies for setting up PostgreSQL. To connect the database, you need to generate `rails new` with the argument `--database=postgresql`. Then repeat all the steps from the previous section.
 
-Далее необходимо подключить `Rails` к базе, для этого заходим в `config/database.yml` и в блоке `default` добавляем такие аргументы:
+Next, you need to connect `Rails` to the database. To do this, go to `config/database.yml` and add these arguments to the `default` block:
 
 ```yaml
 host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
@@ -27,30 +27,30 @@ username: admin
 password: admin
 ```
 
-Сохраняем и поднимаем заново приложение:
+Save and restart the application:
 
 ```bash
 docker-compose up rails
 ```
 
-Далее заходим в контейнер с приложением и запускаем `Rails` консоль:
+Next, enter the application container and launch the `Rails` console:
 
 ```bash
 docker-compose exec -it rails bash
 rails c
 ```
 
-Проверяем, что база подключена. Команда должна вернуть актуальные настройки соединения.
+Check that the database is connected. The command should return the current connection settings.
 
 ```ruby
 ActiveRecord::Base.connection
 ```
 
-Далее можно пользоваться базой, как в дз про запросы:
+Then you can use the database as in the homework about queries:
 
 ```ruby
 sql = <<-SQL
-  # вставить сюда запрос
+  # insert your query here
 SQL
 
 ActiveRecord::Base.connection.execute(sql).to_a

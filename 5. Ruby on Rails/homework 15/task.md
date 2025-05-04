@@ -1,7 +1,7 @@
-# Задание к уроку Ruby on Rails (lesson 15)
+# Ruby on Rails block homework (lesson 15)
 
-## Имплементировать в приложении Rails модель (на свое усмотрение) и миграции к ней
+## Implement a model (of your choice) and migrations for it in the Rails application
 
-Необходимо объвить свою модель в папке `app/models`
+You need to declare your model in the `app/models` folder
 
-Необходимо сгенерировать миграцию `rails g migration CreateXXXXX`, в миграции прописать поля новой таблицы
+You need to generate a migration `rails g migration CreateXXXXX`, and specify the fields for the new table in the migration

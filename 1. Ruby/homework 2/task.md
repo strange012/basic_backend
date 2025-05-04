@@ -1,6 +1,8 @@
-## Задание к уроку Ruby (lesson 2) 
+# Ruby block homework (lesson 2)
 
-### You need to implement DSL for matching things. Following code has to work:
+## You need to implement DSL for matching things
+
+Following code has to work:
 
 ```ruby
 Module Testable

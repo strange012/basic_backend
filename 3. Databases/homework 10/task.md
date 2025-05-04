@@ -1,12 +1,12 @@
-# Задание к уроку Databases (lesson 10)
+# Databases block homework (lesson 10)
 
-## 1. Пройти [туториала по Redis](https://redis.io/docs/latest/develop/connect/cli/)
+## 1. Complete the [Redis tutorial](https://redis.io/docs/latest/develop/connect/cli/)
 
-## 2. Локально установить Redis
+## 2. Locally install Redis
 
-### Краткая инструкция через `Docker`
+### Brief instructions using `Docker`
 
-Зайти в папку `homework 10`, где лежит `docker-compose.yml`
+Go to the `homework 10` folder, where the `docker-compose.yml` file is located
 
 ```bash
 docker-compose up -d
@@ -14,4 +14,4 @@ docker-compose run redis bash
 redis-cli -h redis
 ```
 
-В терминале `redis-cli` попробовать команды из туториала
+In the `redis-cli` terminal, try the commands from the tutorial

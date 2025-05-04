@@ -1,15 +1,15 @@
-# Задание к уроку Backend (lesson 12)
+# Backend block homework (lesson 12)
 
-## Написать свой сервер на базе [гайда](https://blog.appsignal.com/2016/11/23/ruby-magic-building-a-30-line-http-server-in-ruby.html)
+## Write your own server based on the [guide](https://blog.appsignal.com/2016/11/23/ruby-magic-building-a-30-line-http-server-in-ruby.html)
 
-Базовый пример в папке `4. Backend`.
+Basic example in the `4. Backend` folder.
 
-Требования:
+Requirements:
 
-- 2 файла, клиент и сервер
-- Сервер отправляет сообщения, клиент принимает
-- Оформить решение в классы
+- 2 files, client and server
+- Server sends messages, client receives
+- Structure the solution in classes
 
-## Дополнительно. На базе [клиент-сервера написать чат](https://dev.to/sushant12/tcp-chat-app-with-ruby-i88)
+## Additional task: [Build a chat based on the client-server](https://dev.to/sushant12/tcp-chat-app-with-ruby-i88)
 
-Для этого понадобится и на клиенте, и на сервере создавать тред, который слушает, и тред, который отправляет сообщения. Оба потока выводить в консоль.
+For this, you'll need to create a thread that listens and a thread that sends messages on both the client and server. Display both streams in the console.

@@ -1,29 +1,29 @@
-# Задание к уроку Databases (lesson 9)
+# Databases block homework (lesson 9)
 
-## 1. Доделать задание к уроку 8
+## 1. Complete the lesson 8 homework
 
-## 2. Написать дополнительные запросы
+## 2. Write additional queries
 
-Все запросы можно потестировать локально или на базе стейджинга. Достаточно скопировать свой запрос в буфер, зайти в rails консоль и сохранить `SQL` код в переменную:
+All queries can be tested locally or on the staging database. Simply copy your query to the buffer, enter the rails console, and save the `SQL` code in a variable:
 
 ```ruby
   sql = <<-SQL
-    # вставить сюда запрос
+    # insert your query here
   SQL
 ```
 
-Далее необходимо выполнить запрос:
+Then execute the query:
 
 ```ruby
   ActiveRecord::Base.connection.execute(sql).to_a
 ```
 
-Можно добавить в начало запроса `EXPLAIN ANALYZE`, чтобы получить план и время исполнения.
+You can add `EXPLAIN ANALYZE` at the beginning of the query to get the execution plan and time.
 
-### 2.1. Получить список клиентов c просроченными платежами (любыми) за последние полгода. Посчитать количество, среднюю сумму и общую сумму платежей для каждого клиента
+### 2.1. Get a list of clients with overdue payments (any) for the last six months. Calculate the number, average amount, and total amount of payments for each client
 
-Платеж считается `overdue`, если не был оплачен в течение 5 дней с момента выставления (независимо от того, был ли он оплачен). Полгода считаем по дате выставления, а не по дате оплаты.
+A payment is considered `overdue` if it was not paid within 5 days of being issued (regardless of whether it was paid or not). We count six months based on the issue date, not the payment date.
 
-### 2.2. Посчитать средний уровень вложенности в папки для документов
+### 2.2. Calculate the average nesting level in folders for documents
 
-Тут необходимо рекурсивно заджоинить в себя `doc_dirs`, чтобы построить дерево директорий. Далее джоин с `documents` и группировка с агрегацией по уровню вложенности. Уровень вложенности придется считать самостоятельно во время рекурсивного джоина.
+Here you need to recursively join `doc_dirs` to itself to build a directory tree. Then join with `documents` and group with aggregation by nesting level. The nesting level will have to be calculated independently during the recursive join.

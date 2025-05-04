@@ -1,18 +1,18 @@
-# Задание к уроку Computer Science (lesson 5)
+# Computer Science block homework (lesson 5)
 
-## Реализовать связный список в руби
+## Implement a linked list in Ruby
 
-- Реализовать класс `LinkedList`
-  - `LinkedList` хранит ссылку на корневой узел, а также методы итерации
-  - Каждый узел хранит значение и ссылку на следующий узел
-- Определить конструктор класса, который создает связный список из массива
+- Implement a LinkedList class
+  - `LinkedList` stores a reference to the root node, as well as iteration methods
+  - Each node stores a value and a reference to the next node
+- Define a class constructor that creates a linked list from an array
 
   ```ruby
     LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
     LinkedList.new # <LinkedList []>
   ```
 
-- Определить метод `[]` для получения узла по индексу
+- Define a `[]` method to get a node by index
 
    ```ruby
     list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
@@ -20,7 +20,7 @@
     list[100] # nil
   ```
 
-- Определить метод `find` для поиска узла по значению
+- Define a `find` method to search for a node by value
 
    ```ruby
     list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
@@ -28,7 +28,7 @@
     list.find(5) # nil
   ```
 
-- Определить метод `index_of` для поиска индекса узла
+- Define an `index_of` method to find the index of a node
 
    ```ruby
     list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
@@ -38,7 +38,7 @@
     list.index_of(Node.new(12)) # nil
   ```
 
-- Определить метод `insert` для вставки элемента или узла на место указанного индекса
+- Define an `insert` method to insert an element or node at the specified index
 
    ```ruby
     list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
@@ -47,7 +47,7 @@
     list.insert(Node.new(5), 1)# <LinkedList [1, 5, 2, 3, 4]> 
   ```
 
-- Определить метод `push` для вставки элемента или узла в конец массива. Объявить alias на метод `<<`
+- Define a `push`  method to insert an element or node at the end of the array. Declare an alias for the `<<` method
 
    ```ruby
     list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>
@@ -56,17 +56,17 @@
     list << Node.new(5) # <LinkedList [1, 2, 3, 4, 5]> 
   ```
 
-## Дополнительное задание
+## Extra task
 
-- Определить метод `to_list` у массива
+- Define a `to_list` method for array
 
   ```ruby
     [1, 2, 3].to_list # <LinkedList [1, 2, 3]>
   ```
 
-- Включить в реализацию класса `LinkedList` модуль `Enumerable`
+- Include the `Enumerable` module in the `LinkedList` class implementation
 
-- Определить метод `delete` для удаления узла из связного списка
+- Define a `delete` method to remove a node from the linked list
 
    ```ruby
     list = LinkedList.new([1, 2, 3]) # <LinkedList [1, 2, 3]>

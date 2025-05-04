@@ -1,6 +1,8 @@
-## Задание к уроку Ruby (lesson 1) 
+# Ruby block homework (lesson 1)
 
-### Предлагаю написать реализацию класса по принципу фрукты-яблоки из примера. Материал на закрепление, поэтому требования размытые:
+## I suggest writing a class implementation based on the fruits-apples principle from the example
+
+This material is for reinforcement, so the requirements are flexible:
 
 - Реализовать 2 класса
 - Один класс должен наследоваться от другого
