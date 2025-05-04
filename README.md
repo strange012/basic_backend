@@ -2,9 +2,9 @@
 
 Basic Backend course is designed to provide a basic introduction to the backend and its technologies for non-backend technical specialists. The course is divided into 5 parts. Each part contains a lecture, examples with code snippets and homework.
 
-[[TOC]]
-
 ## 1. Ruby
+
+- [Lecture](https://github.com/strange012/basic_backend/blob/master/1.%20Ruby/lecture.pdf)
 
 ## 2. Computer Science
 
